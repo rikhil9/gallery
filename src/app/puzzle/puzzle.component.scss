@@ -1,0 +1,21 @@
+.puzzle-image {
+    display: flex;
+
+    .box {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+
+.puzzle {
+    width: 700px;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    flex-wrap: wrap;
+    box-sizing: initial;
+    border: 1px solid blue;
+}
