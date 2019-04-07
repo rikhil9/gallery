@@ -18,10 +18,11 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
     public Image: any[] = [];
     public indexes: Array<number> = [];
     public position: Array<number> = [];
-    public timerCompleted: boolean;
+    public timerCompleted: boolean; // from countdown component
     public gameCompleted: boolean;
     public showOriginalImage: boolean = true;
     private subscription: Subscription;
+    public showDown: number = 3;
 
     constructor(private changeDetector: ChangeDetectorRef){
 
@@ -31,9 +32,13 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
       this.breakImageParts(); 
       this.Image = this.randomize(this.Image); 
 
-      this.subscription = timer(5000).subscribe(val => {
-        this.showOriginalImage = false;
-        this.subscription.unsubscribe();
+      this.subscription = timer(1000,1000).subscribe( (value: number ) => {
+        this.showDown--;
+        if(value === 3) {
+          this.showOriginalImage = false;
+          this.subscription.unsubscribe();
+          
+        }
         this.changeDetector.detectChanges();
       });
 

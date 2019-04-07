@@ -15,7 +15,7 @@
     </div>
 </div>
 <div *ngIf="showOriginalImage">
-    <img [src]="imageUrl" alt="puzzle-image" class="puzzle-image-original">
+    <div class="puzzle-image-original"  [ngStyle]="{'background-image': 'url(' + imageUrl + ')'}">{{showDown}}</div>
 </div>
 
 <div *ngIf="gameCompleted">
