@@ -9,3 +9,13 @@
     </li>
 </ul>
 </div>
+<div class="timer">
+    <countdown (timerCompleted)="disableDrag($event)" [stopTime]=gameCompleted></countdown>
+</div>
+
+<div *ngIf="gameCompleted">
+You completed the Game, Congratulations
+</div>
+<div *ngIf=timerCompleted>
+        Unfortunately You ran out of Time, please try again later
+</div>

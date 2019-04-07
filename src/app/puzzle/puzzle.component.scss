@@ -1,11 +1,16 @@
 .puzzle-image {
-    display: flex;
+    display: inline-block;
 
     .box {
         list-style-type: none;
         padding: 0;
         margin: 0;
     }
+}
+
+.timer {
+    display: inline-block;
+    float: right;
 }
 
 

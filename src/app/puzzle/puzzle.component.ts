@@ -15,7 +15,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
     public Image: any[] = [];
     public indexes: Array<number> = [];
     public position: Array<number> = [];
+    public timerCompleted: boolean;
+    public gameCompleted: boolean;
 
+    constructor() {
+
+    }
     public ngOnInit() {
       this.initializeGame();
       this.breakImageParts(); 
@@ -58,41 +63,46 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
     }
 
     public onDragStart(event: any): void {
+      if(!this.timerCompleted)
       event.dataTransfer.setData('data', event.target.id);
     }
     public onDrop(event: any): void {
-      let origin = event.dataTransfer.getData('data');
-      let destination = event.target.id;
-  
-  
-      let originElement = document.getElementById(origin);
-      let destinationElement = document.getElementById(destination);
-  
-      let originStyle = originElement.style.cssText;
-      let destinationStyle = event.target.style.cssText;
-  
-  
-     destinationElement.style.cssText = originStyle;
-     originElement.style.cssText = destinationStyle;
-     originElement.id = destination;
-     destinationElement.id = origin;
-  
-  
-      for (let i: number = 0; i < this.position.length; i++) {
-        if (this.position[i].toString() === originElement.id) {
-          this.position[i] = Number(destinationElement.id);
-        } else if (this.position[i].toString() === destinationElement.id) {
-          this.position[i] = Number(originElement.id);
+      if(!this.timerCompleted) {
+        let origin = event.dataTransfer.getData('data');
+        let destination = event.target.id;
+    
+    
+        let originElement = document.getElementById(origin);
+        let destinationElement = document.getElementById(destination);
+    
+        let originStyle = originElement.style.cssText;
+        let destinationStyle = event.target.style.cssText;
+    
+    
+      destinationElement.style.cssText = originStyle;
+      originElement.style.cssText = destinationStyle;
+      originElement.id = destination;
+      destinationElement.id = origin;
+    
+    
+        for (let index: number = 0; index < this.position.length; index++) {
+          if (this.position[index].toString() === originElement.id) {
+            this.position[index] = Number(destinationElement.id);
+          } else if (this.position[index].toString() === destinationElement.id) {
+            this.position[index] = Number(originElement.id);
+          }
+    
+        } 
+    
+        if(this.getCompletionStatus()) {
+          this.gameCompleted = true;
         }
-  
-      } 
-  
-      if(this.getCompletionStatus()) {
-        alert('game complete');
       }
-     
     }
 
+    public disableDrag() {
+      this.timerCompleted = true;
+    }
     public allowDrop(event): void {
       event.preventDefault();
       event.target.style.opacity = 1;

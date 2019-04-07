@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import { PuzzleComponent} from './puzzle.component';
+import { CountdowneModule } from '../countdown/countdown.module';
+
 @NgModule({
   imports: [
     CommonModule,
+    CountdowneModule
   ],
   declarations: [
-    PuzzleComponent
+    PuzzleComponent,
   ],
   exports: [
-    PuzzleComponent
+    PuzzleComponent,
   ]
 })
 export class PuzzleModule {}

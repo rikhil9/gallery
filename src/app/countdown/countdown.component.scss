@@ -1,0 +1,12 @@
+.vertical-bar {
+    display: flex;
+    width: 20px;
+    height: 500px;
+    border: 1px solid black;
+
+    .color-blue {
+        width: 20px;
+        background-color: aqua;
+        margin-top: auto;
+    }
+}
