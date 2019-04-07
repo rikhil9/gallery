@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { timer, Subscription } from 'rxjs';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
+/**
+ * puzzle component
+ */
 @Component({
     selector: 'puzzle',
     templateUrl: './puzzle.component.html',
@@ -27,6 +28,10 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
     constructor(private changeDetector: ChangeDetectorRef){
 
     }
+
+    /**
+     * Angular life cycle method
+     */
     public ngOnInit() {
       this.initializeGame();
       this.breakImageParts(); 
@@ -44,13 +49,18 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
     }
 
+    /**
+     * creates the grids and boxes to display
+     */
     public initializeGame(): void {
 
       this.gridsize = Number(3);
       this.boxSize = 100 / (this.gridsize - 1);
       this.totalBoxes = this.gridsize * this.gridsize;
     }
-
+  /**
+   * Breaks the image into defined parts
+   */
     public  breakImageParts(): void {
       for (let index: number = 0; index < this.totalBoxes; index++) {
         const x: string = (this.boxSize * (index % this.gridsize)) + '%';
@@ -65,6 +75,10 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
       this.boxSize = this.imageSize / this.gridsize;
     }
 
+    /**
+     * Randomize the images order keeping the sequence in memory
+     * @param imageParts sequence of images
+     */
     public randomize(imageParts: any[]): Array<ImageBox> {
       let image: Array<ImageBox> = [], randomNumber: number = 0;
       for (let index: number = 0; index < imageParts.length; index++) {
@@ -79,10 +93,20 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
       return image;
     }
 
+    /**
+     * Drag start event
+     * @param event Drag event
+     */
     public onDragStart(event: any): void {
-      if(!this.timerCompleted)
-      event.dataTransfer.setData('data', event.target.id);
+      if(!this.timerCompleted) {
+        event.dataTransfer.setData('data', event.target.id);
+      }
     }
+
+    /**
+     * Drop event
+     * @param event drag event 
+     */
     public onDrop(event: any): void {
       if(!this.timerCompleted) {
         let origin = event.dataTransfer.getData('data');
@@ -117,15 +141,25 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
       }
     }
 
+    /**
+     * Disable drag and drop
+     */
     public disableDrag() {
       this.timerCompleted = true;
     }
 
+    /**
+     * Allow Drop other wise drop event won't work
+     * @param event 
+     */
     public allowDrop(event): void {
       event.preventDefault();
       event.target.style.opacity = 1;
     }
 
+    /**
+     * Calculates the positions of images is in sorted order or not
+     */
     public getCompletionStatus(): boolean {
       for (let index: number = 0; index < this.position.length; index++) {
         const current = this.position[index], next = this.position[index + 1];
@@ -133,12 +167,19 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
       }
       return true;
     }
+
+    /**
+     * Life cycle event
+     */
     public ngOnDestroy() {
       this.subscription.unsubscribe();
     }
 
   }
 
+  /**
+   * Generic Image box class
+   */
   class ImageBox {
     x_pos: string;
     y_pos: string;

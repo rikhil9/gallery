@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, OnDestroy, ChangeDetectorRef, EventEmitter, Output, OnChanges } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 
+/**
+ * Counddown component
+ */
 @Component({
     selector: 'countdown',
     templateUrl: './countdown.component.html',
@@ -25,6 +28,10 @@ import { interval, Subscription } from 'rxjs';
     constructor(private changeDetector: ChangeDetectorRef) {
 
     }
+    
+    /**
+     * Angular life cycle event
+     */
     public ngOnInit() {
       this.subscribe = interval(100).subscribe( (value: number) => {
         value/=10; //smoothing effect
@@ -37,12 +44,18 @@ import { interval, Subscription } from 'rxjs';
         this.changeDetector.detectChanges();
       });
     }
-
+    /**
+     * LIfe cycle event ovverriden to stop the timer
+     */
     public ngOnChanges() {
       if(this.stopTime){
         this.subscribe.unsubscribe();
       }
     }
+
+    /**
+     * Life cycle event
+     */
     public ngOnDestroy() {
       this.subscribe.unsubscribe();
     }
