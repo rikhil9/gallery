@@ -11,7 +11,7 @@
     </ul>
     </div>
     <div class="timer">
-        <countdown (timerCompleted)="disableDrag($event)" [stopTime]=gameCompleted></countdown>
+        <countdown (timerCompleted)="disableDrag()" [stopTime]=gameCompleted></countdown>
     </div>
 </div>
 <div *ngIf="showOriginalImage">

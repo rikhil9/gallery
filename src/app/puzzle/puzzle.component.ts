@@ -98,7 +98,7 @@ export class PuzzleComponent implements OnInit, OnDestroy {
    * @param event Drag event
    */
   public onDragStart(event: any): void {
-    if (!this.timerCompleted) {
+    if (!( this.timerCompleted || this.gameCompleted ) ) {
       event.dataTransfer.setData('data', event.target.id);
     }
   }
@@ -108,7 +108,7 @@ export class PuzzleComponent implements OnInit, OnDestroy {
    * @param event drag event 
    */
   public onDrop(event: any): void {
-    if (!this.timerCompleted) {
+    if ( !( this.timerCompleted || this.gameCompleted ) ) {
       let origin = event.dataTransfer.getData('data');
       let destination = event.target.id;
 
