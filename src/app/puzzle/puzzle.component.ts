@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { timer, Subscription } from 'rxjs';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'puzzle',
@@ -6,7 +8,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
     styleUrls: ['./puzzle.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
   })
-  export class PuzzleComponent implements OnInit {
+  export class PuzzleComponent implements OnInit, OnDestroy {
+
     public imageUrl: string = '../assets/berlin.jpg';
     public imageSize: number = 700;
     public gridsize: number;
@@ -17,14 +20,23 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
     public position: Array<number> = [];
     public timerCompleted: boolean;
     public gameCompleted: boolean;
+    public showOriginalImage: boolean = true;
+    private subscription: Subscription;
 
-    constructor() {
+    constructor(private changeDetector: ChangeDetectorRef){
 
     }
     public ngOnInit() {
       this.initializeGame();
       this.breakImageParts(); 
       this.Image = this.randomize(this.Image); 
+
+      this.subscription = timer(5000).subscribe(val => {
+        this.showOriginalImage = false;
+        this.subscription.unsubscribe();
+        this.changeDetector.detectChanges();
+      });
+
     }
 
     public initializeGame(): void {
@@ -103,6 +115,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
     public disableDrag() {
       this.timerCompleted = true;
     }
+
     public allowDrop(event): void {
       event.preventDefault();
       event.target.style.opacity = 1;
@@ -114,6 +127,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
         if (current > next) { return false; }
       }
       return true;
+    }
+    public ngOnDestroy() {
+      this.subscription.unsubscribe();
     }
 
   }
