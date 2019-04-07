@@ -32,7 +32,7 @@ export class PuzzleComponent implements OnInit, OnDestroy {
   /**
    * Angular life cycle method
    */
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.initializeGame();
     this.breakImageParts();
     this.Image = this.randomize(this.Image);
@@ -144,7 +144,7 @@ export class PuzzleComponent implements OnInit, OnDestroy {
   /**
    * Disable drag and drop
    */
-  public disableDrag() {
+  public disableDrag(): void {
     this.timerCompleted = true;
   }
 
@@ -171,7 +171,7 @@ export class PuzzleComponent implements OnInit, OnDestroy {
   /**
    * Life cycle event
    */
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

@@ -32,7 +32,7 @@ export class CountdownComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Angular life cycle event
    */
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.subscribe = interval(100).subscribe((value: number) => {
       value /= 10; //smoothing effect
       this.fillHeight = (this.totalTime - value) / this.totalTime * this.height;
@@ -47,7 +47,7 @@ export class CountdownComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * LIfe cycle event ovverriden to stop the timer
    */
-  public ngOnChanges() {
+  public ngOnChanges(): void {
     if (this.stopTime) {
       this.subscribe.unsubscribe();
     }
@@ -56,7 +56,7 @@ export class CountdownComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Life cycle event
    */
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.subscribe.unsubscribe();
   }
 }
