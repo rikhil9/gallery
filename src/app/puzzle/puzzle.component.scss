@@ -1,46 +1,48 @@
 .puzzle-image {
     display: inline-block;
+    left: 30%;
     position: relative;
 
     .notification {
+        color: blanchedalmond;
         font-size: 100px;
         position: absolute;
-        color: blanchedalmond;
+        text-align: center;
         top: 10%;
         z-index: 1;
     }
 
     .box {
         list-style-type: none;
-        padding: 0;
         margin: 0;
+        padding: 0;
     }
 }
 
 .timer {
-    display: inline-block;
     float: right;
 }
 
 
 .puzzle {
-    width: 700px;
-    height: 700px;
+    border: 1px solid blue;
+    box-sizing: initial;
     display: flex;
+    flex-wrap: wrap;
+    height: 700px;
     justify-content: center;
     padding: 0;
-    flex-wrap: wrap;
-    box-sizing: initial;
-    border: 1px solid blue;
+    width: 700px;
 }
 .puzzle-image-original {
-    width: 700px;
-    height: 700px;
     background-size: 700px;
     background-repeat:   no-repeat;
     background-size:     cover; 
     background-position: center center;
     color: white;
+    height: 700px;
     font-size: 250px;
+    margin: auto;
     text-align: center;
+    width: 700px;
 }
