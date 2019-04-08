@@ -35,7 +35,7 @@ export class PuzzleComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.initializeGame();
     this.breakImageParts();
-    this.Image = this.randomize(this.Image);
+    this.shuffleImages(this.Image);
 
     this.subscription = timer(1000, 1000).subscribe((value: number) => {
       this.showDown--;
@@ -79,18 +79,15 @@ export class PuzzleComponent implements OnInit, OnDestroy {
    * Randomize the images order keeping the sequence in memory
    * @param imageParts sequence of images
    */
-  public randomize(imageParts: any[]): Array<ImageBox> {
-    let image: Array<ImageBox> = [], randomNumber: number = 0;
-    for (let index: number = 0; index < imageParts.length; index++) {
-      randomNumber = Math.floor(Math.random() * imageParts.length);
-      while (imageParts[randomNumber] === null) {
-        randomNumber = Math.floor(Math.random() * imageParts.length);
-      }
-      image.push(imageParts[randomNumber]);
-      this.position.push(imageParts[randomNumber].index);
-      imageParts[randomNumber] = null;
+  public shuffleImages(imageParts: Array<ImageBox>): void {
+    for (let index: number = imageParts.length - 1; index > 0; index--) {
+      const temp: number = Math.floor(Math.random() * (index + 1));
+      [imageParts[index], imageParts[temp]] = [imageParts[temp], imageParts[index]]; // swapping
     }
-    return image;
+    imageParts.forEach((image: ImageBox) => {
+      this.position.push(image.index);
+    });
+
   }
 
   /**
@@ -98,7 +95,7 @@ export class PuzzleComponent implements OnInit, OnDestroy {
    * @param event Drag event
    */
   public onDragStart(event: any): void {
-    if (!( this.timerCompleted || this.gameCompleted ) ) {
+    if (!(this.timerCompleted || this.gameCompleted)) {
       event.dataTransfer.setData('data', event.target.id);
     }
   }
@@ -108,7 +105,7 @@ export class PuzzleComponent implements OnInit, OnDestroy {
    * @param event drag event 
    */
   public onDrop(event: any): void {
-    if ( !( this.timerCompleted || this.gameCompleted ) ) {
+    if (!(this.timerCompleted || this.gameCompleted)) {
       let origin = event.dataTransfer.getData('data');
       let destination = event.target.id;
 
