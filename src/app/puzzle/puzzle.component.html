@@ -1,26 +1,29 @@
 <div *ngIf="!showOriginalImage">
-    <div class="puzzle-image" >
-    <ul class="puzzle" dropzone="true">
-        <li *ngFor="let img of Image" class="box" [draggable]="true" [id]="img.index" (dragstart)="onDragStart($event, dropData)"
-        (drop)="onDrop($event)" (dragover)="allowDrop($event)"  [style.width.px]="boxSize" [style.height.px]="boxSize"
-            [ngStyle]="{'background-image':'url(' + imageUrl + ') ','background-repeat':'no-repeat', 
+    <div class="puzzle-image">
+        <ul class="puzzle" dropzone="true">
+            <li *ngFor="let img of Image" class="box" [draggable]="true" [id]="img.index" (dragstart)="onDragStart($event, dropData)"
+                (drop)="onDrop($event)" (dragover)="allowDrop($event)" [style.width.px]="boxSize" [style.height.px]="boxSize"
+                [ngStyle]="{'background-image':'url(' + imageUrl + ') ','background-repeat':'no-repeat', 
             'background-position': '' + img.x_pos + ' '  + img.y_pos + '','background-size':''+ (gridsize * 100) +'% '+ 
             (gridsize * 100) +'%'}">
 
-        </li>
-    </ul>
+            </li>
+        </ul>
+
+        <div *ngIf="gameCompleted" class="notification">
+            You completed the Game, Congratulations
+        </div>
+        <div *ngIf=timerCompleted class="notification">
+            Unfortunately You ran out of Time, please try again later
+        </div>
+
     </div>
     <div class="timer">
         <countdown (timerCompleted)="disableDrag()" [stopTime]=gameCompleted></countdown>
     </div>
+
+
 </div>
 <div *ngIf="showOriginalImage">
-    <div class="puzzle-image-original"  [ngStyle]="{'background-image': 'url(' + imageUrl + ')'}">{{showDown}}</div>
-</div>
-
-<div *ngIf="gameCompleted">
-You completed the Game, Congratulations
-</div>
-<div *ngIf=timerCompleted>
-        Unfortunately You ran out of Time, please try again later
+    <div class="puzzle-image-original" [ngStyle]="{'background-image': 'url(' + imageUrl + ')'}">{{showDown}}</div>
 </div>

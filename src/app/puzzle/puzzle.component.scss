@@ -1,5 +1,14 @@
 .puzzle-image {
     display: inline-block;
+    position: relative;
+
+    .notification {
+        font-size: 100px;
+        position: absolute;
+        color: blanchedalmond;
+        top: 10%;
+        z-index: 1;
+    }
 
     .box {
         list-style-type: none;

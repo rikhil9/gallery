@@ -65,7 +65,7 @@ export class PuzzleComponent implements OnInit, OnDestroy {
     for (let index: number = 0; index < this.totalBoxes; index++) {
       const x: string = (this.boxSize * (index % this.gridsize)) + '%';
       const y: string = (this.boxSize * Math.floor(index / this.gridsize)) + '%';
-      let image: ImageBox = new ImageBox();
+      const image: ImageBox = new ImageBox();
       image.x_pos = x;
       image.y_pos = y;
       image.index = index;
@@ -102,19 +102,19 @@ export class PuzzleComponent implements OnInit, OnDestroy {
 
   /**
    * Drop event
-   * @param event drag event 
+   * @param event drag event
    */
   public onDrop(event: any): void {
     if (!(this.timerCompleted || this.gameCompleted)) {
-      let origin = event.dataTransfer.getData('data');
-      let destination = event.target.id;
+      const origin = event.dataTransfer.getData('data');
+      const destination = event.target.id;
 
 
-      let originElement = document.getElementById(origin);
-      let destinationElement = document.getElementById(destination);
+      const originElement = document.getElementById(origin);
+      const destinationElement = document.getElementById(destination);
 
-      let originStyle = originElement.style.cssText;
-      let destinationStyle = event.target.style.cssText;
+      const originStyle = originElement.style.cssText;
+      const destinationStyle = event.target.style.cssText;
 
 
       destinationElement.style.cssText = originStyle;
@@ -147,7 +147,7 @@ export class PuzzleComponent implements OnInit, OnDestroy {
 
   /**
    * Allow Drop other wise drop event won't work
-   * @param event 
+   * @param event drop event
    */
   public allowDrop(event): void {
     event.preventDefault();
@@ -159,8 +159,11 @@ export class PuzzleComponent implements OnInit, OnDestroy {
    */
   public getCompletionStatus(): boolean {
     for (let index: number = 0; index < this.position.length; index++) {
-      const current = this.position[index], next = this.position[index + 1];
-      if (current > next) { return false; }
+      const current = this.position[index];
+      const next = this.position[index + 1];
+      if (current > next) { 
+        return false;
+      }
     }
     return true;
   }

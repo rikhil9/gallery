@@ -13,7 +13,7 @@ import { interval, Subscription } from 'rxjs';
 export class CountdownComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
-  public totalTime: number = 60;
+  public totalTime: number = 20;
   @Input()
   public stopTime: boolean = false;
 
@@ -34,7 +34,7 @@ export class CountdownComponent implements OnInit, OnChanges, OnDestroy {
    */
   public ngOnInit(): void {
     this.subscribe = interval(100).subscribe((value: number) => {
-      value /= 10; //smoothing effect
+      value /= 10; // smoothing effect
       this.fillHeight = (this.totalTime - value) / this.totalTime * this.height;
       if (value === this.totalTime) {
         this.timerCompleted.emit(true);

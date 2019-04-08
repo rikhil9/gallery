@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common'
+import { CommonModule } from '@angular/common';
 import { PuzzleComponent} from './puzzle.component';
 import { CountdowneModule } from '../countdown/countdown.module';
 /**
