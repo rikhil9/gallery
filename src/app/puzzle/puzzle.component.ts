@@ -17,7 +17,6 @@ export class PuzzleComponent implements OnInit, OnDestroy {
   public boxSize: number;
   public totalBoxes: number;
   public Image: any[] = [];
-  public indexes: Array<number> = [];
   public position: Array<number> = [];
   public timerCompleted: boolean; // from countdown component
   public gameCompleted: boolean;
@@ -69,7 +68,6 @@ export class PuzzleComponent implements OnInit, OnDestroy {
       image.x_pos = x;
       image.y_pos = y;
       image.index = index;
-      this.indexes.push(index);
       this.Image.push(image);
     }
     this.boxSize = this.imageSize / this.gridsize;
